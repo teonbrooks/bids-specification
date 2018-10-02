@@ -1,0 +1,469 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>The Brain Imaging Data Structure (BIDS) Specification</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="CHANGES.html"><strong aria-hidden="true">1.</strong> Changelog</a></li><li><a href="Introduction/index.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li><ol class="section"><li><a href="Introduction/1_Motivation.html"><strong aria-hidden="true">2.1.</strong> Motivation</a></li><li><a href="Introduction/2_Definitions.html"><strong aria-hidden="true">2.2.</strong> Definitions</a></li><li><a href="Introduction/3_Compulsory.html"><strong aria-hidden="true">2.3.</strong> Compulsory, optional, and additional data and metadata</a></li><li><a href="Introduction/4_Source_data.html"><strong aria-hidden="true">2.4.</strong> Source vs. raw vs. derived data</a></li><li><a href="Introduction/5_Inheritance.html"><strong aria-hidden="true">2.5.</strong> The Inheritance Principle</a></li><li><a href="Introduction/6_Extensions.html"><strong aria-hidden="true">2.6.</strong> Extensions</a></li><li><a href="Introduction/7_Citing_BIDS.html"><strong aria-hidden="true">2.7.</strong> Citing BIDS</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">The Brain Imaging Data Structure (BIDS) Specification</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#a1-changelog-a-idh17phlwhk50eta" id="a1-changelog-a-idh17phlwhk50eta"><h1>1 Changelog <a id="h.17phlwhk50et"></a></h1></a>
+<p>1.1.1</p>
+<ul>
+<li>Improved the MEG landmark coordinates description.</li>
+<li>Replaced ManufacturersCapModelName in meg.json with CapManufacturer
+and CapManufacturersModelName.</li>
+<li>Remove EEGSamplingFrequency and ManufacturersAmplifierModelName
+from the meg.json.</li>
+<li>Improved the behavioural data description.</li>
+</ul>
+<p>1.1.0</p>
+<ul>
+<li>Added support for MEG data (merged BEP008)</li>
+<li>Added SequenceName field.</li>
+<li>Added support for describing events with Hierarchical Event Descriptors [<a href="#heading=h.daip42kp5ndz">8.5 Task events</a>].</li>
+<li>Added VolumeTiming and AcquisitionDuration fields [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added DwellTime field.</li>
+</ul>
+<p>1.0.2</p>
+<ul>
+<li>Added support for high resolution (anatomical) T2star images [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging data</a>].</li>
+<li>Added support for multiple defacing masks [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging data</a>].</li>
+<li>Added optional key and metadata field for contrast enhanced structural scans [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging data</a>].</li>
+<li>Added DelayTime field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added support for multi echo BOLD data [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+</ul>
+<p>1.0.1</p>
+<ul>
+<li>Added InstitutionName field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added InstitutionAddress field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added DeviceSerialNumber field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added NumberOfVolumesDiscardedByUser and
+NumberOfVolumesDiscardedByScanner field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including
+resting state) imaging data</a>].</li>
+<li>Added TotalReadoutTime to functional images metadata list
+ [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging
+data</a>].</li>
+</ul>
+<p>1.0.1-rc1</p>
+<ul>
+<li>Added T1 Rho maps [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging
+data</a>].</li>
+<li>Added support for phenotypic information split into multiple files
+[<a href="#heading=h.pi5iigxxt8vy">8.11 Participant key file</a>].</li>
+<li>Added recommendations for multi site datasets</li>
+<li>Added SoftwareVersions</li>
+<li>Added run-&lt;run_index&gt; to the phase encoding
+maps. Improved the description.</li>
+<li>Added InversionTime metadata key.</li>
+<li>Clarification on the source vs raw language.</li>
+<li>Added trial_type column to the event files.</li>
+<li>Added missing sub-&lt;participant_label&gt; in
+behavioural data file names</li>
+<li>Added ability to store stimuli files.</li>
+<li>Clarified the language describing allowed subject labels.</li>
+<li>Added quantitative proton density maps.</li>
+</ul>
+<p>1.0.0</p>
+<ul>
+<li>Added ability to specify fieldmaps acquired with multiple parameter
+sets.</li>
+<li>Added ability to have multiple runs of the same fieldmap.</li>
+<li>Added FLASH anatomical images.</li>
+</ul>
+<p>1.0.0-rc4</p>
+<ul>
+<li>Replaced links to neurolex with explicit DICOM Tags.</li>
+<li>Added sourcedata.</li>
+<li>Added data dictionaries.</li>
+<li>Be more explicit about contents of JSON files for structural
+(anatomical) scans.</li>
+</ul>
+<p>1.0.0-rc3</p>
+<ul>
+<li>Renamed PhaseEncodingDirection values from “x”, “y”,
+“z” to “i”, “j”, “k” to avoid confusion with FSL parameters</li>
+<li>Renamed SliceEncodingDirection values from “x”, “y”,
+“z” to “i”, “j”, “k”</li>
+</ul>
+<p>1.0.0-rc2</p>
+<ul>
+<li>Removed the requirement that TSV files cannot include more than two
+consecutive spaces.</li>
+<li>Refactor of the definitions sections (copied from the
+manuscript)</li>
+<li>Make support for uncompressed .nii files more explicit.</li>
+<li>Added BIDSVersion to dataset.json</li>
+<li>Remove the statement that SliceEncodingDirection is
+necessary for slice time correction</li>
+<li>Change dicom converter recommendation from dcmstack to dcm2nii and
+dicm2nii following interactions with the community (see
+<a href="https://github.com/moloney/dcmstack/issues/39">https://github.com/moloney/dcmstack/issues/39</a> and
+<a href="https://github.com/neurolabusc/dcm2niix/issues/4">https://github.com/neurolabusc/dcm2niix/issues/4</a>).</li>
+<li>Added section on behavioral experiments with no accompanying MRI
+acquisition</li>
+<li>Add _magnitude.nii[.gz] image for GE type
+fieldmaps.</li>
+<li>Replaced EchoTimeDifference with
+EchoTime1 and EchoTime2 (SPM toolbox
+requires this input).</li>
+<li>Added support for single band reference image for DWI.</li>
+<li>Added DatasetDOI field in the dataset
+description.</li>
+<li>Added description of more metadata fields relevant to DWI fieldmap
+correction.</li>
+<li>PhaseEncodingDirection is now expressed in “x”, “y” etc.
+instead of “PA” “RL” for DWI scans (so it’s the same as BOLD
+scans)</li>
+<li>Added rec-&lt;label&gt; flag to BOLD files to
+distinguish between different reconstruction algorithms (analogous
+to anatomical scans).</li>
+<li>Added recommendation to use _physio suffix for continuous recordings of motion parameters obtained by the scanner side reconstruction algorithms.</li>
+</ul>
+<p>1.0.0-rc1</p>
+<ul>
+<li>Initial release</li>
+</ul>
+<a class="header" href="#introduction" id="introduction"><h1>Introduction</h1></a>
+<a class="header" href="#motivation" id="motivation"><h2>Motivation</h2></a>
+<p>Neuroimaging experiments result in complicated data that can be arranged in many different ways. So far there is no consensus how to organize and share data obtained in neuroimaging experiments. Even two researchers working in the same lab can opt to arrange their data in a different way. Lack of consensus (or a standard) leads to misunderstandings and time wasted on rearranging data or rewriting scripts expecting certain structure. Here we describe a simple and easy-to-adopt way of organising neuroimaging and behavioural data. By using this standard you will benefit in the following ways:</p>
+<ul>
+<li>It will be easy for another researcher to work on your data. To understand the organisation of the files and their format you will only need to refer them to this document. This is especially important if you are running your own lab and anticipate more than one person working on the same data over time. By using BIDS you will save time trying to understand and reuse data acquired by a graduate student or postdoc that has already left the lab.</li>
+<li>There are a growing number of data analysis software packages that can understand data organised according to BIDS (see <a href="http://bids.neuroimaging.io">http://bids.neuroimaging.io</a> for the most up to date list).</li>
+<li>Databases such as OpenNeuro.org accept datasets organised according to BIDS. If you ever plan to share your data publicly (nowadays some journals require this) you can minimize the additional time and energy spent on publication, and speed up the curation process by using BIDS to structure and describe your data right after acquisition.</li>
+<li>There are <a href="https://github.com/Squishymedia/BIDS-Validator">validation tools</a> that can check your dataset integrity and let you easily spot missing values.</li>
+</ul>
+<p>BIDS is heavily inspired by the format used internally by OpenfMRI.org and has been supported by the International Neuroinformatics Coordinating Facility and the Neuroimaging Data Sharing Task Force. While working on BIDS we consulted many neuroscientists to make sure it covers most common experiments, but at the same time is intuitive and easy to adopt. The specification is intentionally based on simple file formats and folder structures to reflect current lab practices and make it accessible to a wide range of scientists coming from different backgrounds.</p>
+<a class="header" href="#definitions" id="definitions"><h2>Definitions</h2></a>
+<p>The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
+&quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot; in this document are to be interpreted as described in
+[<a href="https://www.ietf.org/rfc/rfc2119.txt">RFC2119</a>].</p>
+<p>Throughout this protocol we use a list of terms. To avoid misunderstanding we clarify them here.</p>
+<ol>
+<li>Dataset - a set of neuroimaging and behavioural data acquired for a purpose of a particular study. A dataset consists of data acquired from one or more subjects, possibly from multiple sessions.</li>
+<li>Subject - a person or animal participating in the study.</li>
+<li>Session - a logical grouping of neuroimaging and behavioural data consistent across subjects. Session can (but doesn't have to) be synonymous to a visit in a longitudinal study. In general, subjects will stay in the scanner during one session. However, for example, if a subject has to leave the scanner room and then be re-positioned on the scanner bed, the set of MRI acquisitions will still be considered as a session and match sessions acquired in other subjects. Similarly, in situations where different data types are obtained over several visits (for example fMRI on one day followed by DWI the day after) those can be grouped in one session. Defining multiple sessions is appropriate when several identical or similar data acquisitions are planned and performed on all -or most- subjects, often in the case of some intervention between sessions (e.g., training).</li>
+<li>Data acquisition - a continuous uninterrupted block of time during which a brain scanning instrument was acquiring data according to particular scanning sequence/protocol.</li>
+<li>Data type - a functional group of different types of  data. In BIDS we define five data types: func (task based and resting state functional MRI), dwi (diffusion weighted imaging), fmap (field inhomogeneity mapping data such as field maps), anat (structural imaging such as T1, T2, etc.), meg (magnetoencephalography).</li>
+<li>Task - a set of structured activities performed by the participant. Tasks are usually accompanied by stimuli and responses, and can greatly vary in complexity. For the purpose of this protocol we consider the so-called “resting state” a task. In the context of brain scanning, a task is always tied to one data acquisition. Therefore, even if during one acquisition the subject performed multiple conceptually different behaviours (with different sets of instructions) they will be considered one (combined) task.</li>
+<li>Event - a stimulus or subject response recorded during a task. Each event has an onset time and duration. Note that not all tasks will have recorded events (e.g., resting state).</li>
+<li>Run - an uninterrupted repetition of data acquisition that has the same acquisition parameters and task (however events can change from run to run due to different subject response or randomized nature of the stimuli). Run is a synonym of a data acquisition.</li>
+</ol>
+<a class="header" href="#compulsory-optional-and-additional-data-and-metadata" id="compulsory-optional-and-additional-data-and-metadata"><h2>Compulsory, optional, and additional data and metadata</h2></a>
+<p>The following standard describes a way of arranging data and writing down metadata for a subset of neuroimaging experiments. Some aspects of the standard are compulsory. For example a particular file name format is required when storing structural scans. Some aspects are regulated but optional. For example a T2 volume does not need to be included, but when it is available it should be saved under a particular file name specified in the standard.
+This standard aspires to describe a majority of datasets, but acknowledges that there will be cases that do not fit. In such cases one can include additional files and subfolders to the existing folder structure following common sense. For example one may want to include eye tracking data in a vendor specific format that is not covered by this standard. The most sensible place to put it is next to the continuous recording file with the same naming scheme but different extensions. The solutions will change from case to case and publicly available datasets will be reviewed to include common data types in the future releases of the BIDS spec.</p>
+<a class="header" href="#source-vs-raw-vs-derived-data" id="source-vs-raw-vs-derived-data"><h2>Source vs. raw vs. derived data</h2></a>
+<p>BIDS in its current form is designed to harmonize and describe raw (unprocessed or minimally processed due to file format conversion) data. During analysis such data will be transformed and partial as well as final results will be saved. Derivatives of the raw data (other than products of DICOM to NIfTI conversion) MUST be kept separate from the raw data. This way one can protect the raw data from accidental changes by file permissions. In addition it is easy to distinguish partial results from the raw data and share the latter. Similar rules apply to source data which is defined as data before harmonization and/or file format conversion (for example E-Prime event logs or DICOM files).</p>
+<p>This specification currently does not go into details of recommending a particular naming scheme for including different types of source data (raw event logs, parameter files, etc. before conversion to BIDS) and data derivatives (correlation maps, brain masks, contrasts maps, etc.). However, in the case that these data are to be included:</p>
+<ol>
+<li>These data MUST be kept in separate <code>sourcedata</code> and <code>derivatives</code>
+folders each with a similar folder structure as presented below for the BIDS-managed data. For example:
+<code>derivatives/fmriprep/sub-01/ses-pre/sub-01_ses-pre_mask.nii.gz</code> or <code>sourcedata/sub-01/ses-pre/func/sub-01_ses-pre_task-rest_bold.dicom.tgz</code> or <code>sourcedata/sub-01/ses-pre/func/MyEvent.sce</code>.</li>
+<li>A README file SHOULD be found at the root of the <code>sourcedata</code> or the
+<code>derivatives</code> folder (or both). This file should describe the nature of the raw data or the derived data. In the case of the existence of a <code>derivatives</code> folder, we RECOMMEND including details about the software stack and settings used to generate the results. Inclusion of non-imaging objects that improve reproducibility are encouraged (scripts, settings files, etc.).</li>
+<li>We RECOMMEND including the PDF print-out with the actual sequence
+parameters generated by the scanner in the  <code>sourcedata</code> folder.</li>
+</ol>
+<a class="header" href="#the-inheritance-principle" id="the-inheritance-principle"><h2>The Inheritance Principle</h2></a>
+<p>Any metadata file (<code>.json</code>, <code>.bvec</code>, <code>.tsv</code>, etc.) may be defined at any directory level, but no more than one applicable file may be defined at a given level (Example 1).  The values from the top level are inherited by all lower levels unless they are overridden by a file at the lower level. For example, <code>sub-*_task-rest_bold.json</code> may be specified at the participant level, setting TR to a specific value. If one of the runs has a different TR than the one specified in that file, another <code>sub-*_task-rest_bold.json</code> file can be placed within that specific series directory specifying the TR for that specific run.
+There is no notion of &quot;unsetting&quot; a key/value pair. For example if there is a JSON file corresponding to particular participant/run defining a key/value and there is a JSON file on the root level of the dataset that does not define this key/value it will not be &quot;unset&quot; for all subjects/runs.
+Files for a particular participant can exist only at participant level directory, i.e
+<code>/dataset/sub-*[/ses-*]/sub-*_T1w.json</code>. Similarly, any  file that is not specific to a participant is to be declared only at top level of dataset for eg: <code>task-sist_bold.json</code> must be placed under <code>/dataset/task-sist_bold.json</code></p>
+<p>Example 1: Two JSON files at same level that are applicable for NIfTI
+file.</p>
+<pre><code>sub-01/
+    ses-test/
+        sub-test_task-overtverbgeneration_bold.json
+        sub-test_task-overtverbgeneration_run-2_bold.json
+        anat/
+            sub-01_ses-test_T1w.nii.gz
+        func/
+            sub-01_ses-test_task-overtverbgeneration_run-1_bold.nii.gz
+            sub-01_ses-test_task-overtverbgeneration_run-2_bold.nii.gz
+</code></pre>
+<p>In the above example, two JSON files are listed under
+<code>sub-01/ses-test/</code>, which are each applicable to <code>sub-01_ses-test_task-overtverbgeneration_run-2_bold.nii.gz</code>, violating the constraint that no more than one file may be defined at a given level of the directory structure. Instead <code>task-overtverbgeneration_run-2_bold.json</code> should have been under <code>sub-01/ses-test/func/</code>.</p>
+<p>Example 2:  Multiple run and rec with same acquisition (acq) parameters acq-test1</p>
+<pre><code>sub-01/
+    anat/
+    func/
+        sub-01_task-xyz_acq-test1_run-1_bold.nii.gz
+        sub-01_task-xyz_acq-test1_run-2_bold.nii.gz
+        sub-01_task-xyz_acq-test1_rec-recon1_bold.nii.gz
+        sub-01_task-xyz_acq-test1_rec-recon2_bold.nii.gz
+        sub-01_task-xyz_acq-test1_bold.json
+</code></pre>
+<p>For the above example, all NIfTI files are acquired with same scanning parameters (<code>acq-test1</code>). Hence a JSON file describing the acq parameters will apply to different runs and rec files. Also if the JSON file (<code>task-xyz_acq-test1_bold.json</code>) is defined at dataset top level  directory, it  will be applicable to all task runs with <code>test1</code> acquisition parameter.</p>
+<p>Case 2:  Multiple json files at different levels for same task and acquisition parameters</p>
+<pre><code>sub-01/
+   sub-01_task-xyz_acq-test1_bold.json
+         anat/
+         func/
+             sub-01_task-xyz_acq-test1_run-1_bold.nii.gz
+             sub-01_task-xyz_acq-test1_rec-recon1_bold.nii.gz
+             sub-01_task-xyz_acq-test1_rec-recon2_bold.nii.gz
+</code></pre>
+<p>In the above example, the fields from <code>task-xyz_acq-test1_bold.json</code> file will apply to all bold runs. However, if there is a key with different value in <code>sub-01/func/sub-01_task-xyz_acq-test1_run-1_bold.json</code>,
+the new value will be applicable for that particular run/task NIfTI
+file/s.</p>
+<a class="header" href="#the-inheritance-principle-1" id="the-inheritance-principle-1"><h2>The Inheritance Principle</h2></a>
+<p>Any metadata file (<code>.json</code>, <code>.bvec</code>, <code>.tsv</code>, etc.) may be defined at any directory level, but no more than one applicable file may be defined at a given level (Example 1).  The values from the top level are inherited by all lower levels unless they are overridden by a file at the lower level. For example, <code>sub-*_task-rest_bold.json</code> may be specified at the participant level, setting TR to a specific value. If one of the runs has a different TR than the one specified in that file, another <code>sub-*_task-rest_bold.json</code> file can be placed within that specific series directory specifying the TR for that specific run.
+There is no notion of &quot;unsetting&quot; a key/value pair. For example if there is a JSON file corresponding to particular participant/run defining a key/value and there is a JSON file on the root level of the dataset that does not define this key/value it will not be &quot;unset&quot; for all subjects/runs.
+Files for a particular participant can exist only at participant level directory, i.e
+<code>/dataset/sub-*[/ses-*]/sub-*_T1w.json</code>. Similarly, any  file that is not specific to a participant is to be declared only at top level of dataset for eg: <code>task-sist_bold.json</code> must be placed under <code>/dataset/task-sist_bold.json</code></p>
+<p>Example 1: Two JSON files at same level that are applicable for NIfTI
+file.</p>
+<pre><code>sub-01/
+    ses-test/
+        sub-test_task-overtverbgeneration_bold.json
+        sub-test_task-overtverbgeneration_run-2_bold.json
+        anat/
+            sub-01_ses-test_T1w.nii.gz
+        func/
+            sub-01_ses-test_task-overtverbgeneration_run-1_bold.nii.gz
+            sub-01_ses-test_task-overtverbgeneration_run-2_bold.nii.gz
+</code></pre>
+<p>In the above example, two JSON files are listed under
+<code>sub-01/ses-test/</code>, which are each applicable to <code>sub-01_ses-test_task-overtverbgeneration_run-2_bold.nii.gz</code>, violating the constraint that no more than one file may be defined at a given level of the directory structure. Instead <code>task-overtverbgeneration_run-2_bold.json</code> should have been under <code>sub-01/ses-test/func/</code>.</p>
+<p>Example 2:  Multiple run and rec with same acquisition (acq) parameters acq-test1</p>
+<pre><code>sub-01/
+    anat/
+    func/
+        sub-01_task-xyz_acq-test1_run-1_bold.nii.gz
+        sub-01_task-xyz_acq-test1_run-2_bold.nii.gz
+        sub-01_task-xyz_acq-test1_rec-recon1_bold.nii.gz
+        sub-01_task-xyz_acq-test1_rec-recon2_bold.nii.gz
+        sub-01_task-xyz_acq-test1_bold.json
+</code></pre>
+<p>For the above example, all NIfTI files are acquired with same scanning parameters (<code>acq-test1</code>). Hence a JSON file describing the acq parameters will apply to different runs and rec files. Also if the JSON file (<code>task-xyz_acq-test1_bold.json</code>) is defined at dataset top level  directory, it  will be applicable to all task runs with <code>test1</code> acquisition parameter.</p>
+<p>Case 2:  Multiple json files at different levels for same task and acquisition parameters</p>
+<pre><code>sub-01/
+   sub-01_task-xyz_acq-test1_bold.json
+         anat/
+         func/
+             sub-01_task-xyz_acq-test1_run-1_bold.nii.gz
+             sub-01_task-xyz_acq-test1_rec-recon1_bold.nii.gz
+             sub-01_task-xyz_acq-test1_rec-recon2_bold.nii.gz
+</code></pre>
+<p>In the above example, the fields from <code>task-xyz_acq-test1_bold.json</code> file will apply to all bold runs. However, if there is a key with different value in <code>sub-01/func/sub-01_task-xyz_acq-test1_run-1_bold.json</code>,
+the new value will be applicable for that particular run/task NIfTI
+file/s.</p>
+<a class="header" href="#extensions" id="extensions"><h2>Extensions</h2></a>
+<p>The BIDS specification can be extended in a backwards compatible way  and will evolve over time. A number of extensions are currently being worked on:</p>
+<table><thead><tr><th align="left"> Extension label                                                                           </th><th align="left"> Title                                                                                                                                                                                         </th><th align="left"> Moderators/leads </th></tr></thead><tbody>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1QwfHyBzOyFWOLO4u_kkojLpUhW0-4_M7Ubafu9Gf4Gg">BEP001</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1QwfHyBzOyFWOLO4u_kkojLpUhW0-4_M7Ubafu9Gf4Gg">Structural acquisitions that include multiple contrasts (multi echo, flip angle, inversion time) sequences</a> </td><td align="left"> Gilles de Hollander </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1bq5eNDHTb6Nkx3WUiOBgKvLNnaa5OMcGtD0AZ9yms2M">BEP002</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1bq5eNDHTb6Nkx3WUiOBgKvLNnaa5OMcGtD0AZ9yms2M">The BIDS Models Specification</a>                                                                              </td><td align="left"> Tal Yarkoni </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1Wwc4A6Mow4ZPPszDIWfCUCRNstn7d_zzaWPcfcHmgI4">BEP003</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1Wwc4A6Mow4ZPPszDIWfCUCRNstn7d_zzaWPcfcHmgI4">Common Derivatives</a>                                                                                         </td><td align="left"> Chris Gorgolewski </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1kyw9mGgacNqeMbp4xZet3RnDhcMmf4_BmRgKaOkO2Sc">BEP004</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1kyw9mGgacNqeMbp4xZet3RnDhcMmf4_BmRgKaOkO2Sc">Susceptibility Weighted Imaging (SWI)</a>                                                                      </td><td align="left"> Fidel Alfaro Almagro </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c">BEP005</a> </td><td align="left"> <a href="https://docs.google.com/document/d/15tnn5F10KpgHypaQJNNGiNKsni9035GtDqJzWqkkP6c">Arterial Spin Labeling (ASL)</a>                                                                               </td><td align="left"> Henk-Jan Mutsaerts and Michael Chappell </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1ArMZ9Y_quTKXC-jNXZksnedK2VHHoKP3HCeO5HPcgLE">BEP006</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1ArMZ9Y_quTKXC-jNXZksnedK2VHHoKP3HCeO5HPcgLE">Electroencephalography (EEG)</a>                                                                               </td><td align="left"> Cyril R Pernet, Robert Oostenveld, Stefan Appelhoff </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1mqMLnxVdLwZjDd4ZiWFqjEAmOmfcModA_R535v3eQs0">BEP009</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1mqMLnxVdLwZjDd4ZiWFqjEAmOmfcModA_R535v3eQs0">Positron Emission Tomography (PET)</a>                                                                         </td><td align="left"> Melanie Ganz </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1qMUkoaXzRMlJuOcfTYNr3fTsrl4SewWjffjMD5Ew6GY">BEP010</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1qMUkoaXzRMlJuOcfTYNr3fTsrl4SewWjffjMD5Ew6GY">intracranial Electroencephalography (iEEG)</a>                                                                 </td><td align="left"> Dora Hermes and Chris Holdgraf </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1YG2g4UkEio4t_STIBOqYOwneLEs1emHIXbGKynx7V0Y">BEP011</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1YG2g4UkEio4t_STIBOqYOwneLEs1emHIXbGKynx7V0Y">The structural preprocessing derivatives</a>                                                                   </td><td align="left"> Andrew Hoopes </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/16CvBwVMAs0IMhdoKmlmcm3W8254dQmNARo-7HhE-lJU">BEP012</a> </td><td align="left"> <a href="https://docs.google.com/document/d/16CvBwVMAs0IMhdoKmlmcm3W8254dQmNARo-7HhE-lJU">The functional preprocessing derivatives</a>                                                                   </td><td align="left"> Camille Maumet and Chris Markiewicz </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1qBNQimDx6CuvHjbDvuFyBIrf2WRFUOJ-u50canWjjaw">BEP013</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1qBNQimDx6CuvHjbDvuFyBIrf2WRFUOJ-u50canWjjaw">The resting state fMRI derivatives</a>                                                                         </td><td align="left"> Steven Giavasis </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE">BEP014</a> </td><td align="left"> <a href="https://docs.google.com/document/d/11gCzXOPUbYyuQx8fErtMO9tnOKC3kTWiL9axWkkILNE">The affine transformations and nonlinear field warps</a>                                                       </td><td align="left"> Oscar Esteban </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1WYOTXDB7GzlHoWqLjd45I3uGBgPxXddST-NTqBnroJE">BEP015</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1WYOTXDB7GzlHoWqLjd45I3uGBgPxXddST-NTqBnroJE">Mapping file</a>                                                                                               </td><td align="left"> Eric Earl, Camille Maumet, and Vasudev Raguram </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1cQYBvToU7tUEtWMLMwXUCB_T8gebCotE1OczUpMYW60">BEP016</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1cQYBvToU7tUEtWMLMwXUCB_T8gebCotE1OczUpMYW60">The diffusion weighted imaging derivatives</a>                                                                 </td><td align="left"> Franco Pestilli and Oscar Esteban </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1ugBdUF6dhElXdj3u9vw0iWjE6f_Bibsro3ah7sRV0GA">BEP017</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1ugBdUF6dhElXdj3u9vw0iWjE6f_Bibsro3ah7sRV0GA">Generic BIDS connectivity data schema</a>                                                                      </td><td align="left"> Eugene Duff and Paul McCarthy </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1uRkgyzESLKuGjXi98Z97Wh6vt-iLN5nOAb9TG16CjUs">BEP018</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1uRkgyzESLKuGjXi98Z97Wh6vt-iLN5nOAb9TG16CjUs">Genetic information</a>                                                                                        </td><td align="left"> Cyril R Pernet, Clara Moreau, and Thomas Nichols </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1FqJI791ycXr0bfRg2qyLqAf0RpVttJ2cInOgMWrKsNU">BEP019</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1FqJI791ycXr0bfRg2qyLqAf0RpVttJ2cInOgMWrKsNU">DICOM Metadata</a>                                                                                             </td><td align="left"> Satrajit Ghosh </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw">BEP020</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1eggzTCzSHG3AEKhtnEDbcdk-2avXN6I94X8aUPEBVsw">Eye Tracking including Gaze Position and Pupil Size(ET)</a>                                                    </td><td align="left"> Benjamin Gagl and Dejan Draschkow </td></tr>
+<tr><td align="left"> <a href="https://docs.google.com/document/d/1PmcVs7vg7Th-cGC-UrX8rAhKUHIzOI-uIOh69_mvdlw">BEP021</a> </td><td align="left"> <a href="https://docs.google.com/document/d/1PmcVs7vg7Th-cGC-UrX8rAhKUHIzOI-uIOh69_mvdlw">Common Electrophysiological Derivatives</a>                                                                    </td><td align="left"> Stefan Appelhoff, Cyril Pernet, Robert Oostenveld, Teon Brooks </td></tr>
+</tbody></table>
+<p>When an extension reaches maturity it is merged into the main body of the specification. If you would like to contribute to BIDS please consult the <a href="https://docs.google.com/document/d/1pWmEEY-1-WuwBPNy5tDAxVJYQ9Een4hZJM06tQZg8X4/edit?usp%3Dsharing&amp;sa=D&amp;ust=1537468908724000">BIDS Contributor
+Guide</a>
+All of the ideas that are not backwards compatible and thus will have to wait for BIDS 2.0 are listed <a href="https://docs.google.com/document/d/1LEgsMiisGDe1Gv-hBp1EcLmoz7AlKj6VYULUgDD3Zdw">here</a></p>
+<a class="header" href="#citing-bids" id="citing-bids"><h2>Citing BIDS</h2></a>
+<p>When referring to BIDS in context of academic literature please
+cite:</p>
+<blockquote>
+<p>Gorgolewski, K.J., Auer, T., Calhoun, V.D., Craddock, R.C., Das, S., Duff, E.P., Flandin, G., Ghosh, S.S., Glatard, T., Halchenko, Y.O., Handwerker, D.A., Hanke, M., Keator, D., Li, X., Michael, Z., Maumet, C., Nichols, B.N., Nichols, T.E., Pellman, J., Poline, J.-B., Rokem, A., Schaefer, G., Sochat, V., Triplett, W., Turner, J.A., Varoquaux, G., Poldrack, R.A., 2016. <a href="https://www.nature.com/articles/sdata201644">The brain imaging data structure, a
+format for organizing and describing outputs of neuroimaging
+experiments</a>. Sci Data 3, 160044.</p>
+</blockquote>
+<p>as well as other papers describing specific BIDS extensions (see below).</p>
+<p>BIDS has also a <a href="https://www.force11.org/group/resource-identification-initiative">Research Resource Identifier
+(RRID)</a> - <code>RRID:SCR_016124</code> - which you can also include in your manuscript in addition to citing the paper.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+        
+        <script type="text/javascript">
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+        
+        
+
+    </body>
+</html>

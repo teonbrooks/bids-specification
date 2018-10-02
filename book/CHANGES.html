@@ -1,0 +1,308 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Changelog - The Brain Imaging Data Structure (BIDS) Specification</title>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:500" rel="stylesheet" type="text/css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+        
+
+        
+    </head>
+    <body class="light">
+        <!-- Provide site root to javascript -->
+        <script type="text/javascript">var path_to_root = "";</script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script type="text/javascript">
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script type="text/javascript">
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { } 
+            if (theme === null || theme === undefined) { theme = 'light'; }
+            document.body.className = theme;
+            document.querySelector('html').className = theme + ' js';
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script type="text/javascript">
+            var html = document.querySelector('html');
+            var sidebar = 'hidden';
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <ol class="chapter"><li><a href="CHANGES.html" class="active"><strong aria-hidden="true">1.</strong> Changelog</a></li><li><a href="Introduction/index.html"><strong aria-hidden="true">2.</strong> Introduction</a></li><li><ol class="section"><li><a href="Introduction/1_Motivation.html"><strong aria-hidden="true">2.1.</strong> Motivation</a></li><li><a href="Introduction/2_Definitions.html"><strong aria-hidden="true">2.2.</strong> Definitions</a></li><li><a href="Introduction/3_Compulsory.html"><strong aria-hidden="true">2.3.</strong> Compulsory, optional, and additional data and metadata</a></li><li><a href="Introduction/4_Source_data.html"><strong aria-hidden="true">2.4.</strong> Source vs. raw vs. derived data</a></li><li><a href="Introduction/5_Inheritance.html"><strong aria-hidden="true">2.5.</strong> The Inheritance Principle</a></li><li><a href="Introduction/6_Extensions.html"><strong aria-hidden="true">2.6.</strong> Extensions</a></li><li><a href="Introduction/7_Citing_BIDS.html"><strong aria-hidden="true">2.7.</strong> Citing BIDS</a></li></ol></li></ol>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                
+                <div id="menu-bar" class="menu-bar">
+                    <div id="menu-bar-sticky-container">
+                        <div class="left-buttons">
+                            <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                                <i class="fa fa-bars"></i>
+                            </button>
+                            <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                                <i class="fa fa-paint-brush"></i>
+                            </button>
+                            <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                                <li role="none"><button role="menuitem" class="theme" id="light">Light <span class="default">(default)</span></button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                                <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                            </ul>
+                            
+                            <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                                <i class="fa fa-search"></i>
+                            </button>
+                            
+                        </div>
+
+                        <h1 class="menu-title">The Brain Imaging Data Structure (BIDS) Specification</h1> 
+
+                        <div class="right-buttons">
+                            <a href="print.html" title="Print this book" aria-label="Print this book">
+                                <i id="print-button" class="fa fa-print"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+                
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script type="text/javascript">
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <a class="header" href="#a1-changelog-a-idh17phlwhk50eta" id="a1-changelog-a-idh17phlwhk50eta"><h1>1 Changelog <a id="h.17phlwhk50et"></a></h1></a>
+<p>1.1.1</p>
+<ul>
+<li>Improved the MEG landmark coordinates description.</li>
+<li>Replaced ManufacturersCapModelName in meg.json with CapManufacturer
+and CapManufacturersModelName.</li>
+<li>Remove EEGSamplingFrequency and ManufacturersAmplifierModelName
+from the meg.json.</li>
+<li>Improved the behavioural data description.</li>
+</ul>
+<p>1.1.0</p>
+<ul>
+<li>Added support for MEG data (merged BEP008)</li>
+<li>Added SequenceName field.</li>
+<li>Added support for describing events with Hierarchical Event Descriptors [<a href="#heading=h.daip42kp5ndz">8.5 Task events</a>].</li>
+<li>Added VolumeTiming and AcquisitionDuration fields [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added DwellTime field.</li>
+</ul>
+<p>1.0.2</p>
+<ul>
+<li>Added support for high resolution (anatomical) T2star images [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging data</a>].</li>
+<li>Added support for multiple defacing masks [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging data</a>].</li>
+<li>Added optional key and metadata field for contrast enhanced structural scans [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging data</a>].</li>
+<li>Added DelayTime field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added support for multi echo BOLD data [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+</ul>
+<p>1.0.1</p>
+<ul>
+<li>Added InstitutionName field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added InstitutionAddress field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added DeviceSerialNumber field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging data</a>].</li>
+<li>Added NumberOfVolumesDiscardedByUser and
+NumberOfVolumesDiscardedByScanner field [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including
+resting state) imaging data</a>].</li>
+<li>Added TotalReadoutTime to functional images metadata list
+ [<a href="#heading=h.r8mrcau3kkcq">8.4 Task (including resting state) imaging
+data</a>].</li>
+</ul>
+<p>1.0.1-rc1</p>
+<ul>
+<li>Added T1 Rho maps [<a href="#heading=h.fm6ipijipc08">8.3 Anatomy imaging
+data</a>].</li>
+<li>Added support for phenotypic information split into multiple files
+[<a href="#heading=h.pi5iigxxt8vy">8.11 Participant key file</a>].</li>
+<li>Added recommendations for multi site datasets</li>
+<li>Added SoftwareVersions</li>
+<li>Added run-&lt;run_index&gt; to the phase encoding
+maps. Improved the description.</li>
+<li>Added InversionTime metadata key.</li>
+<li>Clarification on the source vs raw language.</li>
+<li>Added trial_type column to the event files.</li>
+<li>Added missing sub-&lt;participant_label&gt; in
+behavioural data file names</li>
+<li>Added ability to store stimuli files.</li>
+<li>Clarified the language describing allowed subject labels.</li>
+<li>Added quantitative proton density maps.</li>
+</ul>
+<p>1.0.0</p>
+<ul>
+<li>Added ability to specify fieldmaps acquired with multiple parameter
+sets.</li>
+<li>Added ability to have multiple runs of the same fieldmap.</li>
+<li>Added FLASH anatomical images.</li>
+</ul>
+<p>1.0.0-rc4</p>
+<ul>
+<li>Replaced links to neurolex with explicit DICOM Tags.</li>
+<li>Added sourcedata.</li>
+<li>Added data dictionaries.</li>
+<li>Be more explicit about contents of JSON files for structural
+(anatomical) scans.</li>
+</ul>
+<p>1.0.0-rc3</p>
+<ul>
+<li>Renamed PhaseEncodingDirection values from “x”, “y”,
+“z” to “i”, “j”, “k” to avoid confusion with FSL parameters</li>
+<li>Renamed SliceEncodingDirection values from “x”, “y”,
+“z” to “i”, “j”, “k”</li>
+</ul>
+<p>1.0.0-rc2</p>
+<ul>
+<li>Removed the requirement that TSV files cannot include more than two
+consecutive spaces.</li>
+<li>Refactor of the definitions sections (copied from the
+manuscript)</li>
+<li>Make support for uncompressed .nii files more explicit.</li>
+<li>Added BIDSVersion to dataset.json</li>
+<li>Remove the statement that SliceEncodingDirection is
+necessary for slice time correction</li>
+<li>Change dicom converter recommendation from dcmstack to dcm2nii and
+dicm2nii following interactions with the community (see
+<a href="https://github.com/moloney/dcmstack/issues/39">https://github.com/moloney/dcmstack/issues/39</a> and
+<a href="https://github.com/neurolabusc/dcm2niix/issues/4">https://github.com/neurolabusc/dcm2niix/issues/4</a>).</li>
+<li>Added section on behavioral experiments with no accompanying MRI
+acquisition</li>
+<li>Add _magnitude.nii[.gz] image for GE type
+fieldmaps.</li>
+<li>Replaced EchoTimeDifference with
+EchoTime1 and EchoTime2 (SPM toolbox
+requires this input).</li>
+<li>Added support for single band reference image for DWI.</li>
+<li>Added DatasetDOI field in the dataset
+description.</li>
+<li>Added description of more metadata fields relevant to DWI fieldmap
+correction.</li>
+<li>PhaseEncodingDirection is now expressed in “x”, “y” etc.
+instead of “PA” “RL” for DWI scans (so it’s the same as BOLD
+scans)</li>
+<li>Added rec-&lt;label&gt; flag to BOLD files to
+distinguish between different reconstruction algorithms (analogous
+to anatomical scans).</li>
+<li>Added recommendation to use _physio suffix for continuous recordings of motion parameters obtained by the scanner side reconstruction algorithms.</li>
+</ul>
+<p>1.0.0-rc1</p>
+<ul>
+<li>Initial release</li>
+</ul>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                        
+
+                        
+                            <a rel="next" href="Introduction/index.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                
+
+                
+                    <a href="Introduction/index.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
+                
+            </nav>
+
+        </div>
+
+        
+
+        
+
+        
+
+        
+        <script src="elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="searcher.js" type="text/javascript" charset="utf-8"></script>
+        
+
+        <script src="clipboard.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="highlight.js" type="text/javascript" charset="utf-8"></script>
+        <script src="book.js" type="text/javascript" charset="utf-8"></script>
+
+        <!-- Custom JS scripts -->
+        
+
+        
+
+    </body>
+</html>
